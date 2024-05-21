@@ -70,6 +70,13 @@ namespace MyDotween
             TweenManager.Instance.RegisterTween(tween);
             return tween;
         }
+        
+        public static Tween DoScale(this Transform transform, Vector3 endValue, float duration, bool snapping = false)
+        {
+            var tween = new Tween(() => transform.localScale, v => transform.localScale = v, endValue, duration, snapping);
+            TweenManager.Instance.RegisterTween(tween);
+            return tween;
+        }
     }
 
     public enum EasingMode
