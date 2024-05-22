@@ -21,15 +21,16 @@ namespace MyDotween
         private float _elapsedTime;
         private bool _snapping = false;
         private TweenState _curState;
-        public Func<Vector3> Getter;
-        public Action<Vector3> Setter;
+        private Func<Vector3> _getter;
+        private Action<Vector3> _setter;
+        private EasingMode _easingMode;
 
         public Tween(Func<Vector3> getter, Action<Vector3> setter, Vector3 endValue, float duration, bool snapping)
         {
             // _target = target;
-            Getter = getter;
-            Setter = setter;
-            _startValue = Getter.Invoke();
+            _getter = getter;
+            _setter = setter;
+            _startValue = _getter.Invoke();
             _endValue = endValue;
             _duration = duration;
             _snapping = snapping;
@@ -49,16 +50,30 @@ namespace MyDotween
             {
                 _elapsedTime = _duration;
             }
-            var lerpX = Mathf.Lerp(_startValue.x, _endValue.x, _elapsedTime / _duration);
-            var lerpY = Mathf.Lerp(_startValue.y, _endValue.y, _elapsedTime / _duration);
-            var lerpZ = Mathf.Lerp(_startValue.z, _endValue.z, _elapsedTime / _duration);
-            Setter.Invoke(new Vector3(lerpX, lerpY, lerpZ));
+
+            var ratio = EasingFunction.Evaluate(_easingMode, _elapsedTime, _duration);
+            var lerpX = Mathf.Lerp(_startValue.x, _endValue.x, ratio);
+            var lerpY = Mathf.Lerp(_startValue.y, _endValue.y, ratio);
+            var lerpZ = Mathf.Lerp(_startValue.z, _endValue.z, ratio);
+            if (_snapping)
+            {
+                lerpX = Mathf.Round(lerpX);
+                lerpY = Mathf.Round(lerpY);
+                lerpZ = Mathf.Round(lerpZ);
+            }
+            _setter.Invoke(new Vector3(lerpX, lerpY, lerpZ));
         }
         
         public bool IsFinished()
         {
             return _curState == TweenState.Finished
-                || Getter.Invoke() == _endValue;
+                || _getter.Invoke() == _endValue;
+        }
+
+        public Tween SetEase(EasingMode mode)
+        {
+            _easingMode = mode;
+            return this;
         }
     }
 
@@ -82,6 +97,12 @@ namespace MyDotween
     public enum EasingMode
     {
         Linear,
+        EaseInSine,
+        EaseOutSine,
+        EaseInOutSine,
+        EaseInBack,
+        EaseOutBack,
+        EaseInOutBack,
     }
 }
 
