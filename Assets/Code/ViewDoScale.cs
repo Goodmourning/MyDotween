@@ -3,34 +3,22 @@ using UnityEngine.UI;
 
 namespace MyDotween
 {
-    public class ViewDoScale : MonoBehaviour
+    public class ViewDoScale : ViewDotween
     {
-        public Vector3 EndScale;
-        public bool Snapping;
-        public float Duration;
-        public EasingMode EasingMode;
-        public Button ExecuteButton;
-        public Button KillButton;
-
-        private void Start()
+        protected override void Start()
         {
-            ExecuteButton.onClick.AddListener(ExecuteButtonOnClicked);
-            KillButton.onClick.AddListener(KillButtonOnClicked);
+            base.Start();
+            InitValue = transform.localScale;
         }
         
-        private Tween _currentTween;
-        private void ExecuteButtonOnClicked()
+        protected override void ExecuteButtonOnClicked()
         {
-            _currentTween = transform.DoScale(EndScale, Duration, Snapping);
+            CurrentTween = transform.DoScale(EndValue, Duration, Snapping).SetEase(EasingMode);
         }
         
-        private void KillButtonOnClicked()
+        protected override void ResetButtonOnClicked()
         {
-            if (_currentTween != null)
-            {
-                _currentTween.Kill();
-                _currentTween = null;
-            }
+            transform.localScale = InitValue;
         }
     }
 }

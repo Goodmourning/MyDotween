@@ -4,34 +4,22 @@ using UnityEngine.UI;
 
 namespace MyDotween
 {
-    public class ViewDoMove : MonoBehaviour
+    public class ViewDoMove : ViewDotween
     {
-        public Vector3 EndPosition;
-        public bool Snapping;
-        public float Duration;
-        public EasingMode EasingMode;
-        public Button ExecuteButton;
-        public Button KillButton;
-
-        private void Start()
+        protected override void Start()
         {
-            ExecuteButton.onClick.AddListener(ExecuteButtonOnClicked);
-            KillButton.onClick.AddListener(KillButtonOnClicked);
+            base.Start();
+            InitValue = transform.position;
         }
         
-        private Tween _currentTween;
-        private void ExecuteButtonOnClicked()
+        protected override void ExecuteButtonOnClicked()
         {
-            _currentTween = transform.DoMove(EndPosition, Duration, Snapping);
+            CurrentTween = transform.DoMove(EndValue, Duration, Snapping).SetEase(EasingMode);
         }
         
-        private void KillButtonOnClicked()
+        protected override void ResetButtonOnClicked()
         {
-            if (_currentTween != null)
-            {
-                _currentTween.Kill();
-                _currentTween = null;
-            }
+            transform.position = InitValue;
         }
     }
 }
