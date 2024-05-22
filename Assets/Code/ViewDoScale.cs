@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,17 +9,19 @@ namespace MyDotween
         protected override void Start()
         {
             base.Start();
-            InitValue = transform.localScale;
+            InitValue = myTransform.localScale;
         }
         
         protected override void ExecuteButtonOnClicked()
         {
-            CurrentTween = transform.DoScale(EndValue, Duration, Snapping).SetEase(EasingMode);
+            CurrentTween = myTransform.DoScale(EndValue, Duration, Snapping).SetEase(EasingMode);
+            OfficialTween = officialTransform.DOScale(EndValue, Duration).SetEase(EasingFunction.ToEase(EasingMode));
         }
         
         protected override void ResetButtonOnClicked()
         {
-            transform.localScale = InitValue;
+            myTransform.localScale = InitValue;
+            officialTransform.localScale = InitValue;
         }
     }
 }

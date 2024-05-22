@@ -1,6 +1,7 @@
 using System;
 using System.Data;
 using System.Numerics;
+using DG.Tweening;
 using UnityEngine;
 
 namespace MyDotween
@@ -28,6 +29,30 @@ namespace MyDotween
                 default:
                     Debug.LogError("Not Support Ease Mode: " + mode);
                     return 0;
+            }
+        }
+        
+        public static Ease ToEase(EasingMode mode)
+        {
+            switch (mode)
+            {
+                case EasingMode.Linear:
+                    return Ease.Linear;
+                case EasingMode.EaseInSine:
+                    return Ease.InSine;
+                case EasingMode.EaseOutSine:
+                    return Ease.OutSine;
+                case EasingMode.EaseInOutSine:
+                    return Ease.InOutSine;
+                case EasingMode.EaseInBack:
+                    return Ease.InBack;
+                case EasingMode.EaseOutBack:
+                    return Ease.OutBack;
+                case EasingMode.EaseInOutBack:
+                    return Ease.InOutBack;
+                default:
+                    Debug.LogError("Not Support Ease Mode: " + mode);
+                    return Ease.Linear;
             }
         }
     }

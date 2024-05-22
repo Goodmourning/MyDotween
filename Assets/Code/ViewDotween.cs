@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,8 +14,12 @@ namespace MyDotween
         public Button KillButton;
         public Button ResetButton;
 
+        public Transform myTransform;
+        public Transform officialTransform;
+        
         protected Vector3 InitValue;
         protected Tween CurrentTween;
+        protected DG.Tweening.Tween OfficialTween;
 
         protected virtual void Start()
         {
@@ -34,6 +39,11 @@ namespace MyDotween
             {
                 CurrentTween.Kill();
                 CurrentTween = null;
+            }
+            if (OfficialTween != null)
+            {
+                OfficialTween.Kill();
+                OfficialTween = null;
             }
         }
         
