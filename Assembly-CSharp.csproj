@@ -53,13 +53,11 @@
     <Compile Include="Assets\Code\ViewDotween.cs" />
     <Compile Include="Assets\Code\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
     <Compile Include="Assets\Code\DOTween\Modules\DOTweenModuleUtils.cs" />
-    <Compile Include="Assets\Code\ViewDoScaleOfficial.cs" />
     <Compile Include="Assets\Code\DOTween\Modules\DOTweenModuleUI.cs" />
     <Compile Include="Assets\Code\MyDotween.cs" />
     <Compile Include="Assets\Code\ViewDoScale.cs" />
     <Compile Include="Assets\Code\DOTween\Modules\DOTweenModuleEPOOutline.cs" />
     <Compile Include="Assets\Code\DOTween\Modules\DOTweenModulePhysics.cs" />
-    <Compile Include="Assets\Code\ViewDoMoveOfficial.cs" />
     <Compile Include="Assets\Code\DOTween\Modules\DOTweenModulePhysics2D.cs" />
     <None Include="Assets\Code\DOTween\readme.txt" />
     <Reference Include="UnityEngine">

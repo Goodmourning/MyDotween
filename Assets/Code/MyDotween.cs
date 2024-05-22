@@ -52,9 +52,9 @@ namespace MyDotween
             }
 
             var ratio = EasingFunction.Evaluate(_easingMode, _elapsedTime, _duration);
-            var lerpX = Mathf.Lerp(_startValue.x, _endValue.x, ratio);
-            var lerpY = Mathf.Lerp(_startValue.y, _endValue.y, ratio);
-            var lerpZ = Mathf.Lerp(_startValue.z, _endValue.z, ratio);
+            var lerpX = Mathf.LerpUnclamped(_startValue.x, _endValue.x, ratio);
+            var lerpY = Mathf.LerpUnclamped(_startValue.y, _endValue.y, ratio);
+            var lerpZ = Mathf.LerpUnclamped(_startValue.z, _endValue.z, ratio);
             if (_snapping)
             {
                 lerpX = Mathf.Round(lerpX);
@@ -94,15 +94,5 @@ namespace MyDotween
         }
     }
 
-    public enum EasingMode
-    {
-        Linear,
-        EaseInSine,
-        EaseOutSine,
-        EaseInOutSine,
-        EaseInBack,
-        EaseOutBack,
-        EaseInOutBack,
-    }
 }
 

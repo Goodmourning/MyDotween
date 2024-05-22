@@ -6,6 +6,17 @@ using UnityEngine;
 
 namespace MyDotween
 {
+    public enum EasingMode
+    {
+        Linear,
+        EaseInSine,
+        EaseOutSine,
+        EaseInOutSine,
+        EaseInBack,
+        EaseOutBack,
+        EaseInOutBack,
+    }
+    
     public static class EasingFunction
     {
         public static float Evaluate(EasingMode mode, float elapsedTime, float duration, float overshootOrAmplitude = 1.70158f)
